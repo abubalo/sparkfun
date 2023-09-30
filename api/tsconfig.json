@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "outDir": "./build",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "paths": { "@/*": ["src/*"] }
+  },
+  "include": ["./src/**/*", "./types.d.ts"],
+  "exclude": ["./node_modules", "./build"]
+}
