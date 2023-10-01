@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   Dispatch,
   FC,
@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 import { UserDocument } from "../../../types";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 type Props = {
   children: ReactNode;
@@ -23,7 +23,7 @@ export type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue>({
   user: null,
-  setUser: () => {},
+  setUser: () => null,
   loading: false,
 });
 
@@ -37,7 +37,9 @@ export const AuthProvider: FC<Props> = ({ children }) => {
       setUser(response.data);
       setLoading(false);
     } catch (error) {
-      console.error(error.message);
+      if (error instanceof AxiosError) {
+        console.error(error.message);
+      }
     }
   };
 
