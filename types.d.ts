@@ -3,6 +3,7 @@ import { Document, ObjectId } from "mongoose";
 export interface UserDocument extends Document {
   firstName: string;
   lastName: string;
+  username: string;
   role: "talent" | "user";
   email: string;
   password: string;
