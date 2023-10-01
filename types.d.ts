@@ -3,26 +3,30 @@ import { Document, ObjectId } from "mongoose";
 export interface UserDocument extends Document {
   firstName: string;
   lastName: string;
-  role: string;
+  role: "talent" | "user";
   email: string;
   password: string;
 }
 
 export interface BookingDocument extends Document {
-  fan: ObjectId; // Reference to the fan (User)
-  celebrity: ObjectId; // Reference to the celebrity (User)
+  user: ObjectId;
+  talent: ObjectId;
   bookingDate: Date;
   occasion: String;
-  message: String;
-  status: String;
-  price: Number;
+  package: string;
+  message: string;
+  status: string;
+  price: number;
 }
 
 export interface VideoDocument extends Document {
   booking: ObjectId; // Reference to the booking
   celebrity: ObjectId; // Reference to the celebrity (User)
-  videoUrl: String;
-  duration: Number; // Duration in seconds
+  videoUrl: string;
+  duration: number; // Duration in seconds
+  thubnail: string;
   createdDate: Date;
   // Additional fields as needed
 }
+
+export interface ChatDocument extends Document {}
