@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "../../src/components/ui/LoadingIndicator";
 import { AuthContextValue, useAuth } from "../hooks/AuthProvider";
@@ -10,11 +10,15 @@ const AuthRedirect = <T extends AuthContextValue>(
     const { user, loading } = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const handleAuthentication = useCallback(() => {
       if (user) {
         navigate("/dashboard");
       }
     }, [user, navigate]);
+
+    useEffect(() => {
+      handleAuthentication();
+    }, [handleAuthentication]);
 
     return loading ? <LoadingIndicator /> : <WrappedComponent {...props} />;
   };
