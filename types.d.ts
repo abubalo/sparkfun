@@ -10,8 +10,8 @@ export interface UserDocument extends Document {
 }
 
 export interface BookingDocument extends Document {
-  user: ObjectId;
-  talent: ObjectId;
+  user: ObjectId | UserDocument;
+  talent: ObjectId | TalentDocument;
   bookingDate: Date;
   occasion: String;
   package: string;
@@ -20,14 +20,18 @@ export interface BookingDocument extends Document {
   price: number;
 }
 
+export interface ReviewDocument extends Document{
+  
+}
+
 export interface VideoDocument extends Document {
-  booking: ObjectId; // Reference to the booking
-  celebrity: ObjectId; // Reference to the celebrity (User)
+  booking: ObjectId | BookingDocument;
+  talent: ObjectId | TalentDocument ; 
   videoUrl: string;
   duration: number; // Duration in seconds
   thubnail: string;
   createdDate: Date;
-  // Additional fields as needed
+
 }
 
 export interface ChatDocument extends Document {}
