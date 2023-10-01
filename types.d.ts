@@ -14,24 +14,21 @@ export interface BookingDocument extends Document {
   talent: ObjectId | TalentDocument;
   bookingDate: Date;
   occasion: String;
-  package: string;
+  package?: string;
   message: string;
-  status: string;
   price: number;
+  status: "pending" | "completed" | "modification" | "cancel";
 }
 
-export interface ReviewDocument extends Document{
-  
-}
+export interface ReviewDocument extends Document {}
 
 export interface VideoDocument extends Document {
   booking: ObjectId | BookingDocument;
-  talent: ObjectId | TalentDocument ; 
+  talent: ObjectId | TalentDocument;
   videoUrl: string;
   duration: number; // Duration in seconds
   thubnail: string;
   createdDate: Date;
-
 }
 
 export interface ChatDocument extends Document {}
