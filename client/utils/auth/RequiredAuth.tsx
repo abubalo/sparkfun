@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/AuthProvider";
-import LoadingIndicator from "../../src/components/ui/LoadingIndicator";
+import LoadingIndicator from "../../src/components/shared/ui/LoadingIndicator";
 import { JSX } from "react/jsx-runtime";
 
 const RequiredAuth = (WrappedComponent: React.ComponentType<JSX.Element>) => {
