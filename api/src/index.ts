@@ -1,15 +1,19 @@
-import bookingRoutes from "booking/route";
 import express from "express";
 import mongoose from "mongoose";
-import userRoutes from "user/route";
+
 import { config } from "./config/config";
 import { Logging } from "./utils/lib/Logging";
-import { authLimiter, userActionRateLimiter } from "utils/limiter/rateLimiter";
-import videoRoutes from "video/route";
-import corsMiddleware from "middleware/corsMiddleware";
-import requestLog from "middleware/requestLoggingMiddleware";
-import verifyTokenMiddleware from "middleware/verifyTokenMiddleware";
-import reviewRoutes from "review/route";
+
+import { authLimiter, userActionRateLimiter } from "./utils/limiter/rateLimiter";
+
+import userRoutes from "./user/route";
+import bookingRoutes from "./booking/route";
+import videoRoutes from "./video/route";
+import reviewRoutes from "./review/route";
+
+import corsMiddleware from "./middleware/corsMiddleware";
+import requestLog from "./middleware/requestLoggingMiddleware";
+import verifyTokenMiddleware from "./middleware/verifyTokenMiddleware";
 
 const app = express();
 
@@ -30,7 +34,7 @@ app.use(corsMiddleware);
 // Middleware for handling request logs
 app.use(requestLog);
 
-// Define routes and other middleware
+// API routes
 app.use("/user", authLimiter, userRoutes);
 app.use(
   "/bookings",
@@ -38,11 +42,12 @@ app.use(
   verifyTokenMiddleware,
   bookingRoutes
 );
+
 app.use("/video", userActionRateLimiter, videoRoutes);
 app.use("/messages", userActionRateLimiter);
 app.use("/review", reviewRoutes);
 
-// Start the server
+// Start the server if mongodb is connected
 const startServer = () => {
   app.listen(config.server.port, () => {
     Logging.info(`Server is running on http://localhost:${config.server.port}`);
