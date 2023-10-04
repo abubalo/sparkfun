@@ -5,7 +5,8 @@ import { UserDocument } from "../../../../types";
 export default async function generateToken(user: Partial<UserDocument>) {
   try {
     const payload = {
-      sub: user.id,
+      sub: user._id,
+      id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
       role: user.role,
