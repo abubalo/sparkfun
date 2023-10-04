@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import LoadingIndicator from "../../src/components/ui/LoadingIndicator";
-import { AuthContextValue, useAuth } from "../hooks/AuthProvider";
+import LoadingIndicator from "../../src/components/shared/ui/LoadingIndicator";
+import { AuthContextValue, useAuth } from "../contexts/AuthProvider";
 
 const AuthRedirect = <T extends AuthContextValue>(
   WrappedComponent: React.ComponentType<T>

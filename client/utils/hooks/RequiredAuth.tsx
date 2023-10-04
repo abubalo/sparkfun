@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/AuthProvider";
+import { useAuth } from "../contexts/AuthProvider";
 import LoadingIndicator from "../../src/components/shared/ui/LoadingIndicator";
 import { JSX } from "react/jsx-runtime";
 
