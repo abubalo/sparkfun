@@ -1,5 +1,5 @@
 import express from "express";
-import verifyTokenMiddleware from "middleware/verifyTokenMiddleware";
+import verifyTokenMiddleware from "../middleware/verifyTokenMiddleware";
 
 import {
   addUser,
