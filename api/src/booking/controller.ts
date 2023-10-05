@@ -117,6 +117,24 @@ export const cancelBooking = async (
   }
 };
 
+export const modifyBooking = async (
+  req: ExtendedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const bookingId = req.params.id;
+    const updateBooking = await BookingService.modifyBooking(bookingId);
+
+    if (!updateBooking) {
+      return sendResponse(res, { error: "Booking not found" }, 404);
+    }
+
+    sendResponse(res, { success: true }, 200);
+  } catch (error) {
+    sendResponse(res, { error: "Internal server error" }, 500);
+  }
+};
+
 export const archiveBooking = async (
   req: ExtendedRequest,
   res: Response
