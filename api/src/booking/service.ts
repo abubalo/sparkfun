@@ -1,27 +1,10 @@
-import { MongooseError } from "mongoose";
 import logger from "../utils/lib/logger";
 import { BookingDocument } from "../../../types";
 import BookingModel from "./model";
+import { bookingNotFoundError, handleServiceError } from "utils/error/serviceError";
 
 export default class BookingService {
-  /**
-   * Handles service errors by logging them and throwing them up the call stack.
-   * @param {unknown} error - The error object.
-   */
-  private static handleServiceError = (error: unknown): void => {
-    if (error instanceof MongooseError) {
-      logger.error(`Service Error: ${error.message}`);
-    } else {
-      logger.error(`Service Error: ${error}`);
-    }
 
-    throw error; // Throw the error to be caught and handled at a higher level
-  };
-
-  private static bookingNotFoundError = (id: string): void => {
-    logger.error(`Error! Unable to fetch booking data with ID: ${id}`);
-    throw Error(`Error! Unable to fetch booking data with ID: ${id}`);
-  };
 
   public static createBooking = async (
     data: BookingDocument
@@ -36,7 +19,7 @@ export default class BookingService {
       );
       return newBooking;
     } catch (error) {
-      this.handleServiceError(error);
+      handleServiceError(error);
     }
   };
 
@@ -47,7 +30,7 @@ export default class BookingService {
       const bookingData = await BookingModel.findById(id);
 
       if (!bookingData) {
-        this.bookingNotFoundError(id);
+        bookingNotFoundError(id);
       }
 
       // Populate the 'talent' and 'user' fields separately
@@ -56,7 +39,7 @@ export default class BookingService {
       logger.info(`Get booking data for user with id: ${id}`);
       return bookingData;
     } catch (error) {
-      this.handleServiceError(error);
+      handleServiceError(error);
     }
   };
 
@@ -67,13 +50,13 @@ export default class BookingService {
       const bookingData = await BookingModel.find({ userId });
 
       if (!bookingData) {
-        this.bookingNotFoundError(userId);
+        bookingNotFoundError(userId);
       }
 
       logger.info(`Get booking data for user with id: ${userId}`);
       return bookingData;
     } catch (error) {
-      this.handleServiceError(error);
+      handleServiceError(error);
     }
   };
 
@@ -85,7 +68,7 @@ export default class BookingService {
       const dataToUpdate = await BookingModel.findById(bookingId);
 
       if (!dataToUpdate) {
-        this.bookingNotFoundError(bookingId);
+        bookingNotFoundError(bookingId);
       }
 
       // Update the status to "completed"
@@ -96,7 +79,7 @@ export default class BookingService {
 
       return dataToUpdate;
     } catch (error) {
-      this.handleServiceError(error);
+      handleServiceError(error);
     }
   };
   public static modifyBooking = async (
@@ -107,7 +90,7 @@ export default class BookingService {
       const dataToUpdate = await BookingModel.findById(bookingId);
 
       if (!dataToUpdate) {
-        this.bookingNotFoundError(bookingId);
+        bookingNotFoundError(bookingId);
       }
 
       // Update the status to "cancel"
@@ -122,7 +105,7 @@ export default class BookingService {
 
       return dataToUpdate;
     } catch (error) {
-      this.handleServiceError(error);
+      handleServiceError(error);
     }
   };
 
@@ -134,7 +117,7 @@ export default class BookingService {
       const dataToUpdate = await BookingModel.findById(bookingId);
 
       if (!dataToUpdate) {
-        this.bookingNotFoundError(bookingId);
+        bookingNotFoundError(bookingId);
       }
 
       // Update status to "cancel"
@@ -149,7 +132,7 @@ export default class BookingService {
 
       return dataToUpdate;
     } catch (error) {
-      this.handleServiceError(error);
+      handleServiceError(error);
     }
   };
 
