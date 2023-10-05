@@ -9,22 +9,34 @@ export interface UserDocument extends Document {
   password: string;
 }
 
+declare const BookingStatus: {
+  pending: "pending";
+  completed: "completed";
+  modification: "modification";
+  cancel: "cancel";
+};
+
 export interface BookingDocument extends Document {
   user: ObjectId | UserDocument;
-  talent: ObjectId | TalentDocument;
+  talent: ObjectId | UserDocument;
   bookingDate: Date;
-  occasion: String;
-  package?: string;
+  occasion: string;
+  plan?: string;
   message: string;
   price: number;
-  status: "pending" | "completed" | "modification" | "cancel";
+  status: (typeof BookingStatus)[keyof typeof BookingStatus];
 }
 
-export interface ReviewDocument extends Document {}
+export interface ReviewDocument extends Document {
+  user: ObjectId | string; // Reference to the User model
+  booking: ObjectId | string; // Reference to the Booking model
+  rating: number; // Rating value (1 to 5)
+  comment?: string; // Optional comment
+}
 
 export interface VideoDocument extends Document {
   booking: ObjectId | BookingDocument;
-  talent: ObjectId | TalentDocument;
+  talent: ObjectId | UserDocument;
   videoUrl: string;
   duration: number; // Duration in seconds
   thubnail: string;
