@@ -6,16 +6,16 @@ import {
   deliverBooking,
   getAllBooking,
   getBookingById,
-  updateBooking,
+  modifyBooking,
 } from "./controller";
 
 const router = express.Router();
 
 router.post("/create", createBooking);
 router.get("/:id", getBookingById);
-router.get("/bookings/:userId", getAllBooking);
+router.get("/bookings/:id", getAllBooking);
 router.patch("/deliver/:id", deliverBooking);
-router.patch("/modify/:id", updateBooking);
+router.patch("/modify/:id", modifyBooking);
 router.patch("/cancel/:id", cancelBooking);
 router.delete("/archive/:id", archiveBooking);
 
