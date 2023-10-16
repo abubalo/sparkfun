@@ -1,17 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "CommonJS",
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./build",
+    "target": "es5",
+    "module": "ESNext",
+    "outDir": "./dist",
+    "rootDir": "./",
     "baseUrl": "./src",
+    "skipDefaultLibCheck": true,
     "esModuleInterop": true,
+    "strict": true,
+    "moduleResolution": "NodeNext",
     "skipLibCheck": true,
-    "noEmit": true,
-    "moduleResolution": "node",
-    "paths": { "@/*": ["src/*"] }
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "types": ["node", "jest"],
   },
-  "include": ["./src/**/*", "./types.d.ts"],
-  "exclude": ["./node_modules", "./build"]
+  "include": ["src/**/*.ts", "package.json"],
+  "exclude": ["/node_modules", "dist"]
 }
