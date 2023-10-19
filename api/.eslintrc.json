@@ -1,15 +1,10 @@
 {
-    "env": {
-      "node": true
-    },
-    "extends": ["eslint:recommended"],
-    "parserOptions": {
-      "ecmaVersion": 12
-    },
-    "rules": {
-      "indent": ["error", 2],
-      "quotes": ["error", "duoble"],
-      "semi": ["error", "always"]
-    }
+    "extends": [
+      "eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "roots": true
   }
-  
