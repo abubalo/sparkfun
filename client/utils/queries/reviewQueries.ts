@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ReviewDocument } from "../../../types";
-import { makeApiRequest } from "../lib/makeRequest";
+import { makeApiRequest } from "../helpers/makeRequest";
 
 const reviewApi = axios.create({
   baseURL: "http:localhost:3300/review",

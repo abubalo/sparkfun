@@ -1,5 +1,5 @@
 import axios from "axios";
-import { makeApiRequest } from "../lib/makeRequest";
+import { makeApiRequest } from "../helpers/makeRequest";
 
 const videoApi = axios.create({
   baseURL: "http:localhost:3300/video",

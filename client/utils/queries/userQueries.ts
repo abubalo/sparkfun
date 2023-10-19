@@ -1,6 +1,6 @@
 import axios from "axios";
 import { UserDocument } from "../../../types";
-import { makeApiRequest } from "../lib/makeRequest";
+import { makeApiRequest } from "../helpers/makeRequest";
 
 const userAPI = axios.create({
   baseURL: "http:localhost:3300/user",
