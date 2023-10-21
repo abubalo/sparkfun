@@ -1,14 +1,19 @@
-import { z, ZodError } from "zod";
+import { z, ZodError, TypeOf } from "zod";
 import { UserDocument } from "../../../../types";
 
 const registrationSchema = z.object({
   firstName: z.string().min(3).max(100),
   lastName: z.string().min(3).max(100),
+  role: z.enum(["user", "talent"]),
   email: z.string().email(),
+  username: z.string().min(3),
   password: z.string().min(7).max(100),
 });
 
-export const validateRegistrationInput = (data: UserDocument) => {
+
+type RegistrationType = TypeOf<typeof registrationSchema>;
+
+export const validateRegistrationInput = <RegistrationType>(data: UserDocument) => {
   try {
     const validData = registrationSchema.parse(data);
     return { isValid: true, data: validData };
@@ -27,7 +32,10 @@ const loginSchema = z.object({
   password: z.string().min(7),
 });
 
-export const validateLoginInput = (email: string, password: string) => {
+
+type LoginTypes = TypeOf<typeof loginSchema>;
+
+export const validateLoginInput = <LoginTypes>(email: string, password: string) => {
   try {
     const validData = loginSchema.parse({ email, password });
     return { isValid: true, data: validData };
