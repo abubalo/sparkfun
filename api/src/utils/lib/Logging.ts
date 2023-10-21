@@ -1,23 +1,23 @@
-import chalk from "chalk";
+import kleur from 'kleur';
 
 export class Logging {
   public static log = (args: unknown) => this.info(args);
 
   public static info = (args: unknown) =>
     console.log(
-      chalk.blue(`[${new Date().toLocaleString()}][INFO]`),
-      typeof args === "string" ? chalk.blueBright(args) : args
+      kleur.blue(`[${new Date().toLocaleString()}][INFO]`),
+      typeof args === 'string' ? kleur.blue().bold(args) : args
     );
 
   public static warn = (args: unknown) =>
     console.log(
-      chalk.yellow(`[${new Date().toLocaleString()}][WARN]`),
-      typeof args === "string" ? chalk.yellowBright(args) : args
+      kleur.yellow(`[${new Date().toLocaleString()}][WARN]`),
+      typeof args === 'string' ? kleur.yellow().bold(args) : args
     );
 
   public static error = (args: unknown) =>
     console.log(
-      chalk.red(`[${new Date().toLocaleString()}][ERROR]`),
-      typeof args === "string" ? chalk.redBright(args) : args
+      kleur.red(`[${new Date().toLocaleString()}][ERROR]`),
+      typeof args === 'string' ? kleur.red().bold(args) : args
     );
 }

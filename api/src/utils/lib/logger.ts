@@ -1,5 +1,5 @@
 import winston from "winston";
-import DailyRotateFile from "winston-daily-rotate-file";
+// import DailyRotateFile from "winston-daily-rotate-file";
 
 winston.addColors({
   error: "red",
@@ -28,15 +28,15 @@ const logger = winston.createLogger({
       ),
     }),
 
-    // Daily rotating file transport for combined logs
-    new DailyRotateFile({
-      filename: "logs/%DATE%-combined.log",
-      datePattern: "YYYY-MM-DD",
-      zippedArchive: true,
-      maxSize: "20m",
-      maxFiles: "14d",
-      level: "info", // Log info level and above to this file
-    }),
+    // // Daily rotating file transport for combined logs
+    // new DailyRotateFile({
+    //   filename: "logs/%DATE%-combined.log",
+    //   datePattern: "YYYY-MM-DD",
+    //   zippedArchive: true,
+    //   maxSize: "20m",
+    //   maxFiles: "14d",
+    //   level: "info", // Log info level and above to this file
+    // }),
 
     // Error log file
     new winston.transports.File({ filename: "logs/error.log", level: "error" }),
