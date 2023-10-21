@@ -16,6 +16,11 @@ interface AppConfig {
     accesskey: string;
     secretKey: string;
   };
+  aws:{
+    region: string,
+    sqs: string;
+    sns: string;
+  }
 }
 
 // Define a function to validate and load environment variables
@@ -37,6 +42,10 @@ const MONGO_PASSWORD = validateEnvVariable("MONGO_PASSWORD", "");
 const JWT_SECRET = validateEnvVariable("JWT_SECRET", "");
 const AWS_ACCESS_KEY = validateEnvVariable("AWS_ACCESS_KEY", "");
 const AWS_SECRET_KEY = validateEnvVariable("AWS_SECRET_KEY", "");
+const AWS_REGION = validateEnvVariable("AWS_REGION", "");
+const SQS_QUEUE_URL = validateEnvVariable("SQS_QUEUE_URL", "");
+const SNS_TOPIC_ARN = validateEnvVariable("SNS_TOPIC_ARN", "");
+
 
 const SERVER_PORT = validateEnvVariable("SERVER_PORT", "3500", (value) => {
   const port = parseInt(value.toString(), 10);
@@ -58,4 +67,9 @@ export const config: AppConfig = {
     accesskey: AWS_ACCESS_KEY,
     secretKey: AWS_SECRET_KEY,
   },
+  aws:{
+    region: AWS_REGION,
+    sns: SNS_TOPIC_ARN,
+    sqs:  SQS_QUEUE_URL,
+  }
 };
