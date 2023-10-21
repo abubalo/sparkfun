@@ -1,4 +1,4 @@
-import { z, ZodError } from "zod";
+import { z, ZodError, TypeOf } from "zod";
 import { BookingDocument } from "../../../../types";
 
 const createBookingSchema = z.object({
@@ -8,11 +8,14 @@ const createBookingSchema = z.object({
   occasion: z.string(),
   package: z.string(),
   message: z.string(),
-  status: z.string(),
+  status: z.enum(["pending", "completed", "modification", "cancel"]),
   price: z.number(),
 });
 
-export const validateBookingInput = (data: BookingDocument) => {
+
+export type CreateBookingType = TypeOf<typeof createBookingSchema>;
+
+export const validateBookingInput = <CreateBookingType>(data: BookingDocument) => {
   try {
     const validData = createBookingSchema.parse(data);
     return { isValid: true, data: validData };
