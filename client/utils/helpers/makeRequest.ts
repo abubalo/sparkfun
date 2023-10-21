@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { handleApiError } from "../lib/apiErrorLog";
-import { Logging } from "../lib/Logging";
+import { handleApiError } from "../helpers/apiErrorLog";
+import { Logging } from "../helpers/Logging";
 
 export const makeApiRequest = async <T>(
   axiosFn: () => Promise<AxiosResponse<T>>
