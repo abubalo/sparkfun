@@ -1,4 +1,4 @@
-import express from "express";
+import express, {Request, Response} from "express";
 import verifyTokenMiddleware from "../middleware/verifyTokenMiddleware";
 
 import {
@@ -15,9 +15,9 @@ router.post("/signup", addUser);
 router.post("/login", loginUser);
 
 // Attact verifyTokenMiddleware to routes that requires authentication
-router.get("/:userId", verifyTokenMiddleware, getUser);
-router.patch("/:userId", verifyTokenMiddleware, updateUser);
-router.delete("/:userId", verifyTokenMiddleware, deleteUser);
+router.get("/:id", verifyTokenMiddleware, getUser);
+router.patch("/:id", verifyTokenMiddleware, updateUser);
+router.delete("/:id", verifyTokenMiddleware, deleteUser);
 
 const userRoutes = router;
 export default userRoutes;
