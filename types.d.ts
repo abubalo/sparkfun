@@ -16,9 +16,10 @@ declare const BookingStatus: {
   cancel: "cancel";
 };
 
-export interface BookingDocument extends Document {
-  user: ObjectId | UserDocument;
-  talent: ObjectId | UserDocument;
+export interface BookingDocument {
+  _id?: ObjectId; 
+  user: string | UserDocument;
+  talent: string | UserDocument;
   bookingDate: Date;
   occasion: string;
   plan?: string;
@@ -41,6 +42,12 @@ export interface VideoDocument extends Document {
   duration: number; // Duration in seconds
   thubnail: string;
   createdDate: Date;
+}
+export interface TopicDoc extends Document {
+  orderId: string;
+  status: string;
+  timestamp: Date;
+  deadline: Date;
 }
 
 export interface ChatDocument extends Document {}
