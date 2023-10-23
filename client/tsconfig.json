@@ -6,6 +6,8 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
+    "baseUrl": "./",
+
     /* Bundler mode */
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -17,7 +19,17 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "paths": {
+      "@/*": ["src/*", "/dist/*", ""],
+      "@components/*": ["./components/*"],
+      "@pages/*": ["./pages/*"],
+      "@utils/*":["./utils/*"],
+      "@hooks/*":["./hooks/*"],
+      "@context/*":["./content/*"],
+      "@query/*":["./queries/*"],
+    }
   },
   "include": ["src", "types.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
