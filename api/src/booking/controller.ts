@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import { validateBookingInput } from "utils/validation/bookingValidation";
+import { validateBookingInput } from "../utils/validation/bookingValidation";
 import BookingService from "./service";
 
 interface ExtendedRequest extends Request {
   userId?: string;
+  role?: string;
 }
 
 // Create a standardized response format
@@ -20,17 +21,25 @@ export const createBooking = async (
     const { isValid, data, errors } = validateData;
 
     if (!isValid) {
-      return sendResponse(res, { error: "Validation failed", details: errors }, 422);
+      return sendResponse(
+        res,
+        { error: "Validation failed", details: errors },
+        422
+      );
     }
 
     if (!data) {
       return sendResponse(res, { error: "Data is missing" }, 422);
     }
 
-    const newBooking = await BookingService.createBooking(data);
+    const newBooking = await BookingService.createBooking(data as any);
 
     if (!newBooking) {
-      return sendResponse(res, { error: "Error creating booking, please try again" }, 500);
+      return sendResponse(
+        res,
+        { error: "Error creating booking, please try again" },
+        500
+      );
     }
 
     sendResponse(res, newBooking, 201);
@@ -71,7 +80,11 @@ export const getAllBooking = async (
     const bookingData = await BookingService.getBookingsByUserId(userId);
 
     if (!bookingData) {
-      return sendResponse(res, { error: "User does not have any bookings" }, 404);
+      return sendResponse(
+        res,
+        { error: "User does not have any bookings" },
+        404
+      );
     }
 
     sendResponse(res, bookingData, 200);
@@ -92,12 +105,11 @@ export const deliverBooking = async (
       return sendResponse(res, { error: "Booking not found" }, 404);
     }
 
-    sendResponse(res, { success: true }, 200);
+    sendResponse(res, { success: true }, 204);
   } catch (error) {
     sendResponse(res, { error: "Internal server error" }, 500);
   }
 };
-
 
 export const cancelBooking = async (
   req: ExtendedRequest,
@@ -111,7 +123,7 @@ export const cancelBooking = async (
       return sendResponse(res, { error: "Booking not found" }, 404);
     }
 
-    sendResponse(res, { success: true }, 200);
+    sendResponse(res, { success: true }, 204);
   } catch (error) {
     sendResponse(res, { error: "Internal server error" }, 500);
   }
@@ -129,7 +141,7 @@ export const modifyBooking = async (
       return sendResponse(res, { error: "Booking not found" }, 404);
     }
 
-    sendResponse(res, { success: true }, 200);
+    sendResponse(res, { success: true }, 204);
   } catch (error) {
     sendResponse(res, { error: "Internal server error" }, 500);
   }
@@ -141,7 +153,6 @@ export const archiveBooking = async (
 ): Promise<void> => {
   try {
     const bookingId = req.params.id;
-    
   } catch (error) {
     sendResponse(res, { error: "Internal server error" }, 500);
   }
