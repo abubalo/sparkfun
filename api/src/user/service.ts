@@ -3,14 +3,17 @@ import { MongooseError } from "mongoose";
 import { UserDocument } from "../../../types";
 import logger from "../utils/lib/logger";
 import UserModel from "./model";
+import { handleServiceError } from "../utils/error/serviceError";
 
 export default class UserService {
   public static addUser = async (
     firstName: string,
     lastName: string,
+    role: string,
     email: string,
+    username: string,
     password: string
-  ): Promise<UserDocument | null> => {
+  ): Promise<UserDocument | undefined> => {
     try {
       const saltRounds = 10;
       const salt = bcrypt.genSaltSync(saltRounds);
@@ -19,7 +22,9 @@ export default class UserService {
       const userData = await UserModel.create({
         firstName,
         lastName,
+        role,
         email,
+        username,
         password: hashedPassword,
       });
 
@@ -28,13 +33,7 @@ export default class UserService {
 
       return userData;
     } catch (error) {
-      if (error instanceof MongooseError) {
-        // Log the error
-        logger.error(`Error adding user: ${error.message}`);
-        return null;
-      }
-      // Log the error
-      return null;
+      handleServiceError(error)
     }
   };
 
@@ -64,25 +63,13 @@ export default class UserService {
 
   public static getUserByEmail = async (
     email: string
-  ): Promise<boolean | null> => {
+  ): Promise<boolean | undefined> => {
     try {
       const userData = await UserModel.findOne({ email });
 
-      if (!userData) {
-        logger.error(`User not found with email: ${email}`);
-        return null;
-      }
-
-      logger.info(`Seccussefully retrived email:${email}`);
-      return true;
+      return !!userData;
     } catch (error) {
-      if (error instanceof MongooseError) {
-        logger.error(`Error fetching user by email: ${error.message}`);
-        return null;
-      }
-      // Handle unexpexted error
-      logger.error(`Error: ${error}`);
-      return null;
+      handleServiceError(error)
     }
   };
 
@@ -117,6 +104,19 @@ export default class UserService {
     }
   };
 
+  public static isUserTalent = async (userId: string): Promise<boolean | undefined > =>{
+    try {
+      const user = await UserModel.findById(userId);
+
+      if(user.role !== "talent"){
+          return false
+      }
+
+      return true
+    } catch (error) {
+      handleServiceError(error)
+    }
+  }
   public static updateUser = async (
     id: string,
     data: Partial<UserDocument>
