@@ -10,6 +10,8 @@ const bookingSchema = new mongoose.Schema({
   message: { type: String, required: true },
   status: { type: String, default: "pending", required: true },
   price: { type: Number, required: true },
+},{
+  versionKey: false
 });
 
 const BookingModel =
