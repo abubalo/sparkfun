@@ -33,3 +33,7 @@ export const updateUser = async (
 
 export const deleteUser = async (userId: string) =>
   makeApiRequest(() => userAPI.delete(userId));
+
+export const forgotPassword = async (email: string) =>
+  makeApiRequest(() => userAPI.post("forgot-password", {email}));
+  
