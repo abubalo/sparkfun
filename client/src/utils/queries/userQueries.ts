@@ -7,7 +7,7 @@ const userAPI = axios.create({
   withCredentials: true,
 });
 
-export type CreateUserData = Omit<UserDocument, "role">
+export type CreateUserData = Omit<UserDocument, "role">;
 export const createUser = async (
   data: CreateUserData
 ): Promise<UserDocument | null> =>
@@ -15,10 +15,14 @@ export const createUser = async (
 
 export type LoginData = Pick<UserDocument, "email" | "password">;
 
-export const verifyAccount = async (token: string): Promise<UserDocument | null> =>
+export const verifyAccount = async (
+  token: string
+): Promise<UserDocument | null> =>
   makeApiRequest(() => userAPI.post(`verify?token=${token}`));
 
-export const loginUser = async (data: LoginData): Promise<UserDocument | null> =>
+export const loginUser = async (
+  data: LoginData
+): Promise<UserDocument | null> =>
   makeApiRequest(() => userAPI.post("login", data));
 
 export const getUser = async (): Promise<UserDocument | null> =>
@@ -37,6 +41,8 @@ export const updateUser = async (
 export const deleteUser = async (userId: string) =>
   makeApiRequest(() => userAPI.delete(userId));
 
-export const forgotPassword = async (val: {email: string}) =>
-  makeApiRequest(() => userAPI.post("forgot-password", {val}));
-  
+export const forgotPassword = async (val: { email: string }) =>
+  makeApiRequest(() => userAPI.post("forgot-password", { val }));
+
+export const updateUserRole = async (userId: string, role: string) =>
+  makeApiRequest(() => userAPI.post(`update-role/${userId}`, { role }));
