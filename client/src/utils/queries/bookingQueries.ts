@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BookingDocument } from "../../../types";
+import { BookingDocument } from "../../../../types";
 import { makeApiRequest } from "../helpers/makeRequest";
 
 const bookinApi = axios.create({
@@ -11,7 +11,7 @@ export const createBooking = (data: BookingDocument) => {
   makeApiRequest(() => bookinApi.post("/create", data));
 };
 
-export const getBooking = (bookingId) => {
+export const getBooking = (bookingId: string) => {
   makeApiRequest(() => bookinApi.get(`/${bookingId}`));
 };
 
