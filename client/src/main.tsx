@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           <App />
         </AnimatePresence>
       </QueryClientProvider>
