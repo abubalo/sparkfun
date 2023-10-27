@@ -44,5 +44,5 @@ export const deleteUser = async (userId: string) =>
 export const forgotPassword = async (val: { email: string }) =>
   makeApiRequest(() => userAPI.post("forgot-password", { val }));
 
-export const updateUserRole = async (userId: string, role: string) =>
-  makeApiRequest(() => userAPI.post(`update-role/${userId}`, { role }));
+export const updateUserRole = async (data: { userId: string; role: string }) =>
+  makeApiRequest(() => userAPI.post(`update-role/${data.userId}`, { data }));
