@@ -31,20 +31,20 @@ const authToken = async (
     // Extract the token value after the "=" sign
     const token = tokenPair.split("=")[1];
 
-    const decodedToken = await verifyToken(token.trim());
+    const { user, error, success } = await verifyToken(token.trim());
 
-    if (!decodedToken) {
-      res.status(401).json({ message: "Unauthorized: Token is invalid" });
+    if (!user) {
+      res.status(401).json({ message: error });
       return;
     }
 
     // Attach user id and role to request body for use in route handlers
-    req.userId = decodedToken.id;
-    req.role = decodedToken.role;
+    req.userId = user.id;
+    req.role = user.role;
 
     next();
-  } catch (error: any) {
-    Logging.error(`Error in user middleware: ${error.message}`);
+  } catch (error) {
+    Logging.error(`Error in user middleware: ${error}`);
     next(error);
   }
 };
