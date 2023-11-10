@@ -8,7 +8,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { UserDocument } from "../../../types";
+import { UserDocument } from "../../../../types";
 import { useQuery } from "react-query";
 import { getUser } from "../queries/userQueries";
 
@@ -25,23 +25,20 @@ export type AuthContextValue = {
 const AuthContext = createContext<AuthContextValue>({
   user: null,
   setUser: () => null,
-  isLoading: false,
+  isLoading: true, // Set isLoading to true initially
 });
 
 export const AuthProvider: FC<Props> = ({ children }) => {
   const [user, setUser] = useState<UserDocument | null | undefined>(null);
-
-  const { data, isLoading, isSuccess } = useQuery("user", getUser, {
-    enabled: user === null,
-  });
+  const [isLoading, setIsLoading] = useState(true);
+  const { data,  } = useQuery("user", getUser);
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (data) {
       setUser(data);
+      setIsLoading(false)
     }
-  }, [data, isSuccess]);
-
-  console.log("UserData: ", user)
+  }, [isLoading, data]);
 
   return (
     <AuthContext.Provider value={{ user, setUser, isLoading }}>
