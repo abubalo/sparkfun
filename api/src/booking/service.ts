@@ -1,18 +1,18 @@
 import logger from "../utils/lib/logger";
 import { BookingDocument } from "../../../types";
 import BookingModel from "./model";
-import { bookingNotFoundError, handleServiceError } from "utils/error/serviceError";
+import {
+  bookingNotFoundError,
+  handleServiceError,
+} from "../utils/error/serviceError";
 
 export default class BookingService {
-
-
   public static createBooking = async (
     data: BookingDocument
   ): Promise<BookingDocument | undefined> => {
     try {
       const newBooking = await BookingModel.create(data);
-
-      this.populateBookingFields(newBooking);
+      console.log("New Booking: ", newBooking);
 
       logger.info(
         `Booking created by user: ${newBooking.user?.email} to Talent: ${newBooking.talent?.email}`
@@ -30,11 +30,11 @@ export default class BookingService {
       const bookingData = await BookingModel.findById(id);
 
       if (!bookingData) {
-        bookingNotFoundError(id);
+        return undefined;
       }
 
       // Populate the 'talent' and 'user' fields separately
-      this.populateBookingFields(bookingData);
+      // this.populateBookingFields(bookingData);
 
       logger.info(`Get booking data for user with id: ${id}`);
       return bookingData;
@@ -136,9 +136,9 @@ export default class BookingService {
     }
   };
 
-  private static populateBookingFields = async (
-    booking: BookingDocument
-  ): Promise<void> => {
-    (await booking.populate("talent")).populate("user");
-  };
+  // private static populateBookingFields = async (
+  //   booking: BookingDocument
+  // ): Promise<void> => {
+  //   (await booking.populate("talent")).populate("user");
+  // };
 }
