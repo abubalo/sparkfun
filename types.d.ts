@@ -1,4 +1,4 @@
-import { Document, ObjectId } from "mongoose";
+import mongoose, { Document, ObjectId } from "mongoose";
 
 export interface UserDocument extends Document {
   firstName: string;
@@ -9,6 +9,10 @@ export interface UserDocument extends Document {
   password: string;
 }
 
+type Profile = {
+  availability: string;
+};
+
 declare const BookingStatus: {
   pending: "pending";
   completed: "completed";
@@ -16,16 +20,18 @@ declare const BookingStatus: {
   cancel: "cancel";
 };
 
-export interface BookingDocument {
-  _id?: ObjectId; 
-  user: string | UserDocument;
-  talent: string | UserDocument;
-  bookingDate: Date;
-  occasion: string;
+export interface BookingDocument extends Document {
+  user: ObjectId;
+  talent: ObjectId;
+  celebrant: string;
+  celebrant_age?: string;
+  message?: string;
+  occasion?: string;
+  booking_date?: Date | string;
+  attacthment?: string;
   plan?: string;
-  message: string;
-  price: number;
-  status: (typeof BookingStatus)[keyof typeof BookingStatus];
+  price?: number;
+  status?: (typeof BookingStatus)[keyof typeof BookingStatus];
 }
 
 export interface ReviewDocument extends Document {
@@ -36,8 +42,8 @@ export interface ReviewDocument extends Document {
 }
 
 export interface VideoDocument extends Document {
-  booking: ObjectId | BookingDocument;
-  talent: ObjectId | UserDocument;
+  booking: string | BookingDocument;
+  talent: string | UserDocument;
   videoUrl: string;
   duration: number; // Duration in seconds
   thubnail: string;
@@ -50,4 +56,35 @@ export interface TopicDoc extends Document {
   deadline: Date;
 }
 
+type Temp = {
+  user: ObjectId;
+  talent: ObjectId;
+  from: {
+    name: string;
+    pronoun: string;
+  };
+  to: {
+    name: string;
+    pronoun: string;
+  };
+  celebrant: string;
+  type: string;
+  birthdate?: string | Date;
+  age?: string;
+  activity: string;
+  addtionalMessage: string;
+  attachment: string;
+};
+
+export interface TokenDoc extends Document{
+  email: string;
+  token: string;
+  expirationTimestamp: Date;
+}
+
+export type Response<T> = {
+  success: boolean;
+  error?: string;
+  data?: T;
+};
 export interface ChatDocument extends Document {}
