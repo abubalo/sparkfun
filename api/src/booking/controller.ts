@@ -32,9 +32,9 @@ export const createBooking = async (
       return sendResponse(res, { error: "Data is missing" }, 422);
     }
 
-    const newBooking = await BookingService.createBooking(data as any);
+    const {data:userData, error, success} = await BookingService.createBooking(data as any);
 
-    if (!newBooking) {
+    if (!success) {
       return sendResponse(
         res,
         { error: "Error creating booking, please try again" },
@@ -42,7 +42,7 @@ export const createBooking = async (
       );
     }
 
-    sendResponse(res, newBooking, 201);
+    sendResponse(res, userData, 201);
   } catch (error) {
     sendResponse(res, { error: "Internal server error" }, 500);
   }
@@ -54,13 +54,13 @@ export const getBookingById = async (
 ): Promise<void> => {
   try {
     const bookingId = req.params.id;
-    const bookingData = await BookingService.getBookingById(bookingId);
+    const {data, error} = await BookingService.getBookingById(bookingId);
 
-    if (!bookingData) {
+    if (!data) {
       return sendResponse(res, { error: "Booking not found" }, 404);
     }
 
-    sendResponse(res, bookingData, 200);
+    sendResponse(res, data, 200);
   } catch (error) {
     sendResponse(res, { error: "Internal server error" }, 500);
   }
@@ -77,9 +77,9 @@ export const getAllBooking = async (
       return sendResponse(res, { error: "User ID is missing" }, 422);
     }
 
-    const bookingData = await BookingService.getBookingsByUserId(userId);
+    const {data, success} = await BookingService.getBookingsByUserId(userId);
 
-    if (!bookingData) {
+    if (!success) {
       return sendResponse(
         res,
         { error: "User does not have any bookings" },
@@ -87,7 +87,7 @@ export const getAllBooking = async (
       );
     }
 
-    sendResponse(res, bookingData, 200);
+    sendResponse(res, data, 200);
   } catch (error) {
     sendResponse(res, { error: "Internal server error" }, 500);
   }
@@ -99,9 +99,9 @@ export const deliverBooking = async (
 ): Promise<void> => {
   try {
     const bookingId = req.params.id;
-    const updateBooking = await BookingService.deliverBooking(bookingId);
+    const {data} = await BookingService.deliverBooking(bookingId);
 
-    if (!updateBooking) {
+    if (!data) {
       return sendResponse(res, { error: "Booking not found" }, 404);
     }
 
@@ -117,9 +117,9 @@ export const cancelBooking = async (
 ): Promise<void> => {
   try {
     const bookingId = req.params.id;
-    const updateBooking = await BookingService.cancelBooking(bookingId);
+    const {data} = await BookingService.cancelBooking(bookingId);
 
-    if (!updateBooking) {
+    if (!data) {
       return sendResponse(res, { error: "Booking not found" }, 404);
     }
 
@@ -135,9 +135,9 @@ export const modifyBooking = async (
 ): Promise<void> => {
   try {
     const bookingId = req.params.id;
-    const updateBooking = await BookingService.modifyBooking(bookingId);
+    const {data} = await BookingService.modifyBooking(bookingId);
 
-    if (!updateBooking) {
+    if (!data) {
       return sendResponse(res, { error: "Booking not found" }, 404);
     }
 
