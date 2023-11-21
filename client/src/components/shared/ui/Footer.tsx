@@ -5,9 +5,9 @@ const Footer = () => {
     <footer className="w-full p-4">
       <div className="w-full max-w-screen-xl p-4 mx-auto md:flex md:items-center md:justify-between">
         <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400 space-x-2">
-          <span>© {new Date().getFullYear() }</span>
+          <span>© {new Date().getFullYear()}</span>
           <Link to="/" className="hover:underline">
-             Sparkfun™
+            Sparkfun™
           </Link>
           . All Rights Reserved.
         </span>
