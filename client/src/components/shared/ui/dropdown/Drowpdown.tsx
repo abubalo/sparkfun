@@ -2,7 +2,6 @@ import {
   FC,
   KeyboardEvent,
   ReactNode,
-  useEffect,
   useRef,
   useState,
 } from "react";
@@ -25,7 +24,7 @@ const Dropdown: FC<Props> = ({ toggle, content }) => {
       dropdownRef.current?.focus();
     }
   };
-  useEffect(() => {}, []);
+
   const handleMouseEnter = () => {
     setIsOpen(true);
   };
