@@ -17,7 +17,7 @@ const LinkButton: FC<Props> = ({
   onHover,
 }) => {
   className = twMerge(
-    ` "text-sm leading-6 text-white text-center font-white semibold px-4 py-2 bg-primary rounded-md hover:bg-purple-800 trasition-all" ${
+    ` "w-max block text-sm leading-6 text-white text-center font-white semibold px-4 py-2 bg-primary rounded-md hover:bg-purple-700 active:scale-[1.03] transition-all ease-in-out duration-75" ${
       className ?? ""
     }`
   );
