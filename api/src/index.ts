@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import compression from "compression";
-import session from "express-session";
+import session, { MemoryStore } from "express-session";
 import csrf from "csrf";
 import 'tsconfig-paths/register'
 
@@ -18,13 +18,13 @@ import userRoutes from "./user/route";
 import bookingRoutes from "./booking/route";
 import videoRoutes from "./video/route";
 import reviewRoutes from "./review/route";
+import paymentRoutes from "./payment/route";
 
 import corsMiddleware from "./middleware/corsMiddleware";
 import requestLog from "./middleware/requestLoggingMiddleware";
 import authToken from "./middleware/authToken";
 
 const app = express();
-
 // Initiate MongoDB connection
 mongoose
   .connect(config.mongo.url, { retryWrites: true, w: "majority" })
@@ -42,12 +42,6 @@ app.use(express.json());
 app.use(compression());
 // Middleware to parse cookie request header
 app.use(cookieParser());
-// app.use(session({
-//   secret: "3434vdvdsde23",
-//   resave: false,
-//   saveUninitialized: true
-// }))
-// app.use(csrf())
 // Middleware for handling CORS
 app.use(corsMiddleware);
 // Middleware for handling request logs
@@ -60,7 +54,9 @@ app.use("/booking", userActionRateLimiter, authToken, bookingRoutes);
 
 app.use("/video", userActionRateLimiter, authToken, videoRoutes);
 app.use("/messages", userActionRateLimiter, authToken);
-app.use("/review", reviewRoutes, authToken);
+app.use("/review", authToken, reviewRoutes);
+// app.use("/stripe", authToken, paymentRoutes);
+app.use("/stripe", paymentRoutes);
 
 app.listen(config.server.port, () => {
   Logging.info(`Server is running on http://localhost:${config.server.port}`);
