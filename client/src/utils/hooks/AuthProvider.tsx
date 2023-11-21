@@ -31,12 +31,14 @@ const AuthContext = createContext<AuthContextValue>({
 export const AuthProvider: FC<Props> = ({ children }) => {
   const [user, setUser] = useState<UserDocument | null | undefined>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { data,  } = useQuery("user", getUser);
+  const { data } = useQuery("user", getUser);
 
   useEffect(() => {
     if (data) {
       setUser(data);
-      setIsLoading(false)
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
     }
   }, [isLoading, data]);
 
