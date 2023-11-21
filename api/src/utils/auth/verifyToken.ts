@@ -1,20 +1,21 @@
-import { config } from "config/config";
+import { config } from "../../config/config";
 import * as jwt from "jsonwebtoken";
-import UserModel from "user/model";
+import UserModel from "../../user/model";
+import { UserDocument, Response } from "../../../../types";
 
-export default async function verifyToken(token: string) {
+export default async function verifyToken(token: string): Promise<Response<Partial<UserDocument>>> {
   try {
     const decoded = jwt.verify(token, config.jwt.secret) as { id: string };
     const userId = decoded.id;
 
     const user = await UserModel.findById(userId);
 
-    if(!user){
-      return;
+    if (!user) {
+      return { error: "User does not exist", success: false };
     }
 
-    return user;
+    return { data:user, success: true };
   } catch (error) {
-    throw new Error("Unable to verify token");
+    return { error: "Unable to verify token", success: false };
   }
 }

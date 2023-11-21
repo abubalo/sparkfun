@@ -1,8 +1,10 @@
-import { config } from "config/config";
+import { config } from "../../config/config";
 import * as jwt from "jsonwebtoken";
-import { UserDocument } from "../../../../types";
+import { UserDocument, Response } from "../../../../types";
 
-export default async function generateToken(user: Partial<UserDocument>) {
+export default async function generateToken(
+  user: Partial<UserDocument>
+): Promise<Response<string>> {
   try {
     const payload = {
       sub: user._id,
@@ -11,14 +13,15 @@ export default async function generateToken(user: Partial<UserDocument>) {
       lastName: user.lastName,
       role: user.role,
       email: user.email,
+      username: user.username,
     };
 
     const token = jwt.sign(payload, config.jwt.secret, {
       expiresIn: "24h",
     });
 
-    return token;
-  } catch (error) {
-    throw new Error("Unable to generate token");
+    return { success: true, data: token };
+  } catch (error: any) {
+    return { success: false, error: error.message };
   }
 }
