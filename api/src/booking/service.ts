@@ -1,15 +1,11 @@
 import logger from "../utils/lib/logger";
-import { BookingDocument } from "../../../types";
+import { BookingDocument, Response } from "../../../types";
 import BookingModel from "./model";
-import {
-  bookingNotFoundError,
-  handleServiceError,
-} from "../utils/error/serviceError";
 
 export default class BookingService {
   public static createBooking = async (
     data: BookingDocument
-  ): Promise<BookingDocument | undefined> => {
+  ): Promise<Response<BookingDocument>> => {
     try {
       const newBooking = await BookingModel.create(data);
       console.log("New Booking: ", newBooking);
@@ -17,20 +13,21 @@ export default class BookingService {
       logger.info(
         `Booking created by user: ${newBooking.user?.email} to Talent: ${newBooking.talent?.email}`
       );
-      return newBooking;
-    } catch (error) {
-      handleServiceError(error);
+      return { success: true, data: newBooking };
+    } catch (error: any) {
+      return { success: false, error: `Service Error ${error.message}` };
     }
   };
 
   public static getBookingById = async (
     id: string
-  ): Promise<BookingDocument | undefined> => {
+  ): Promise<Response<BookingDocument>> => {
     try {
       const bookingData = await BookingModel.findById(id);
 
       if (!bookingData) {
-        return undefined;
+        logger.error(`No booking with the specified id: ${id}`);
+        return { success: false, error: "No booking with the specified id" };
       }
 
       // Populate the 'talent' and 'user' fields separately
@@ -38,37 +35,43 @@ export default class BookingService {
 
       logger.info(`Get booking data for user with id: ${id}`);
       return bookingData;
-    } catch (error) {
-      handleServiceError(error);
+    } catch (error: any) {
+      return { success: false, error: `Service Error ${error.message}` };
     }
   };
 
   public static getBookingsByUserId = async (
     userId: string
-  ): Promise<BookingDocument[] | undefined> => {
+  ): Promise<Response<BookingDocument[]>> => {
     try {
       const bookingData = await BookingModel.find({ userId });
 
       if (!bookingData) {
-        bookingNotFoundError(userId);
+        return {
+          success: false,
+          error: `Error! Unable to fetch booking data with specified ID: ${userId}`,
+        };
       }
 
       logger.info(`Get booking data for user with id: ${userId}`);
-      return bookingData;
-    } catch (error) {
-      handleServiceError(error);
+      return { data: bookingData, success: true };
+    } catch (error: any) {
+      return { success: false, error: `Service Error ${error.message}`};
     }
   };
 
   public static deliverBooking = async (
     bookingId: string
-  ): Promise<BookingDocument | undefined> => {
+  ): Promise<Response<BookingDocument>> => {
     try {
       // Find the booking by ID
       const dataToUpdate = await BookingModel.findById(bookingId);
 
       if (!dataToUpdate) {
-        bookingNotFoundError(bookingId);
+        return {
+          success: false,
+          error: `Error! Unable to fetch booking data with specified ID: ${bookingId}`,
+        };
       }
 
       // Update the status to "completed"
@@ -78,19 +81,22 @@ export default class BookingService {
       await dataToUpdate.save();
 
       return dataToUpdate;
-    } catch (error) {
-      handleServiceError(error);
+    } catch (error: any) {
+      return { success: false, error: `Service Error ${error.message}` };
     }
   };
   public static modifyBooking = async (
     bookingId: string
-  ): Promise<BookingDocument | undefined> => {
+  ): Promise<Response<BookingDocument>> => {
     try {
       // Find the booking by ID
       const dataToUpdate = await BookingModel.findById(bookingId);
 
       if (!dataToUpdate) {
-        bookingNotFoundError(bookingId);
+        return {
+          success: false,
+          error: `Error! Unable to fetch booking data with specified ID: ${bookingId}`,
+        };
       }
 
       // Update the status to "cancel"
@@ -104,20 +110,23 @@ export default class BookingService {
       await dataToUpdate.save();
 
       return dataToUpdate;
-    } catch (error) {
-      handleServiceError(error);
+    } catch (error: any) {
+      return { success: false, error: `Service Error ${error.message}` };
     }
   };
 
   public static cancelBooking = async (
     bookingId: string
-  ): Promise<BookingDocument | undefined> => {
+  ): Promise<Response<BookingDocument>> => {
     try {
       // Find the booking by ID
       const dataToUpdate = await BookingModel.findById(bookingId);
 
       if (!dataToUpdate) {
-        bookingNotFoundError(bookingId);
+        return {
+          success: false,
+          error: `Error! Unable to fetch booking data with specified ID: ${bookingId}`,
+        };
       }
 
       // Update status to "cancel"
@@ -131,8 +140,8 @@ export default class BookingService {
       await dataToUpdate.save();
 
       return dataToUpdate;
-    } catch (error) {
-      handleServiceError(error);
+    } catch (error: any) {
+      return { success: false, error: `Service Error ${error.message}` };
     }
   };
 
