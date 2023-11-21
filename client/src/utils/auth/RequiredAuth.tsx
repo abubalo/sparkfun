@@ -10,9 +10,7 @@ const RequiredAuth = <T = unknown,>(WrappedComponent: ComponentType<T>) => {
 
     useEffect(() => {
       const handleAuthentication = () => {
-        if (isLoading) {
-          return;
-        } else if (!user) {
+       if (user === null && isLoading === true) {
           return navigate("/login");
         }
       };
