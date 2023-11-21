@@ -31,7 +31,7 @@ const authToken = async (
     // Extract the token value after the "=" sign
     const token = tokenPair.split("=")[1];
 
-    const { user, error, success } = await verifyToken(token.trim());
+    const { data:user, error } = await verifyToken(token.trim());
 
     if (!user) {
       res.status(401).json({ message: error });
