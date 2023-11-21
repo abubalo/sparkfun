@@ -1,21 +1,27 @@
 import { Request, Response, NextFunction } from "express";
+import corsConfig from "../config/cors-config"
 
-const whiteList =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:5173"
-    : "https://sparkfun.vercel.app";
+
 
 const corsMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  res.header("Access-Control-Allow-Origin", whiteList);
+  const {allowedOrigins, allowedHeaders, allowedMethods} = corsConfig;
+
+  res.header("Access-Control-Allow-Origin", allowedOrigins);
+  
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    allowedHeaders
+  );
+  res.header(
+    "Access-Control-Allow-Credentials",
+    "true"
   );
 
   if (req.method === "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "POST, PUT, PATCH, GET, DELETE");
+    res.header("Access-Control-Allow-Methods", allowedMethods);
     return res.status(200).json({});
   }
+  
 
   next();
 };
