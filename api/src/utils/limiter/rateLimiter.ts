@@ -3,7 +3,7 @@ import rateLimit from "express-rate-limit";
 // Create a rate limiter for authentication and registration endpoints
 export const authLimiter = rateLimit({
   windowMs: 60 * 60 * 100, // 1 hour window
-  max: 5, // Limit each IP to 5 requests per windowMs
+  max: 30, // Allowing 10 requests per windowMs per IP
   message: "Too many login or registration attempts, please try again later.",
 });
 
