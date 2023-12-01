@@ -1,5 +1,5 @@
-import { CheckMark } from "@/components/shared/icons/Icons";
-import ProfilePicture from "@/components/user/profilePicture/ProfilePicture";
+import { CheckMark } from "@components/shared/icons/Icons";
+import ProfilePicture from "@components/user/profilePicture/ProfilePicture";
 import { useLocation } from "react-router-dom";
 
 const BookingPanel = () => {
