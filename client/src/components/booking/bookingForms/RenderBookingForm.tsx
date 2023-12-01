@@ -5,14 +5,6 @@ import OtherForm from "./OtherForm";
 import PepTalkForm from "./PepTalkForm";
 import QuestionForm from "./QuestionForm";
 import RoastForm from "./RoastForm";
-import {
-  Academic,
-  Fire,
-  Gift,
-  QuestionMark,
-  Rocket,
-  Star,
-} from "../../shared/icons/Icons";
 import DefaultForm from "./DefaultForm";
 
 const RenderDefaultForm = () => {
@@ -42,7 +34,7 @@ const RenderDefaultForm = () => {
   // ];
 
   return (
-    <section className="basis-4/5 mb-10" style={{ scrollbarGutter: "stable" }}>
+    <section className="mb-10 basis-4/5" style={{ scrollbarGutter: "stable" }}>
       {formToRender}
     </section>
   );
