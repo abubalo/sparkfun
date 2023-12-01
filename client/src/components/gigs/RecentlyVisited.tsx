@@ -1,4 +1,4 @@
-import BrowseTalentCard from "@/pages/marketplace/BrowseTalentCard";
+import BrowseTalentCard from "@pages/marketplace/BrowseTalentCard";
 import { img1, img3, img5 } from "../Temp";
 
 const RecentlyVisited = () => {
