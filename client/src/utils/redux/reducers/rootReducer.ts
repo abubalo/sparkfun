@@ -7,7 +7,7 @@ import userReducer from "./userReducer";
 const rootReducers = combineReducers({
   user: userReducer,
   booking: bookingReducer,
-  getBookingId: gigIdReducer,
+  getGigId: gigIdReducer,
   authentication: authenticationReducer,
 });
 
