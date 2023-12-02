@@ -1,3 +1,4 @@
+import { UserDocument } from "@types/index";
 import { useMutation } from "react-query";
 import {
   loginUser,
@@ -5,11 +6,11 @@ import {
 } from "../queries/userQueries"; // Assuming LoginData is imported
 
 type Options = {
-  onSuccess?: () => void;
-  onError?: (error: unknown) => void;
+  onSuccess?: (data: UserDocument) => void;
+  onError?: (error: any) => void;
 };
 
-export function useLoginUser(options: Options) {
+export default function useLoginUser(options: Options) {
   return useMutation(
     "loginUser",
     async (data: LoginData) => {
@@ -17,8 +18,8 @@ export function useLoginUser(options: Options) {
       return response;
     },
     {
-      onSuccess: () => {
-        options.onSuccess && options.onSuccess();
+      onSuccess: (data) => {
+        options.onSuccess && options.onSuccess(data);
       },
       onError: (error) => {
         options.onError && options.onError(error);
