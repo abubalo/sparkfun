@@ -1,6 +1,6 @@
-import RenderSettingsForm from "@/components/user/settings/RenderSettingsForm";
-import SettingsPanel from "@/components/user/settings/SettingsPanel";
-import UpdateProfilePic from "@/components/user/settings/UpdateAvatarSettings";
+import RenderSettingsForm from "@components/user/settings/RenderSettingsForm";
+import SettingsPanel from "@components/user/settings/SettingsPanel";
+import UpdateProfilePic from "@components/user/settings/UpdateAvatarSettings";
 
 const Settings = () => {
   return (
