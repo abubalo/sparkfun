@@ -1,8 +1,8 @@
-import LoginForm from "@/components/user/loginForm/LoginForm";
-import AuthRedirect from "@/utils/auth/AuthRedirect";
+import LoginForm from "@components/user/loginForm/LoginForm";
+import AuthRedirect from "@utils/auth/AuthRedirect";
 
-const Login = () => {
+const Login = AuthRedirect(() => {
   return <LoginForm />;
-};
+});
 
-export default (Login);
+export default Login;
