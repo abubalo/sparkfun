@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   setUser,
@@ -7,16 +6,15 @@ import {
 } from "../redux/reducers/authenticationSlice";
 import { getUser } from "../queries/userQueries";
 import { useQuery } from "react-query";
-import { RootState } from "../redux/store/configureStore";
+import { useAppDispatch, useAppSelector } from "../redux/store/configureStore";
 
 const useAuth = () => {
-  const dispatch = useDispatch();
-  const user = useSelector<RootState>((state) => state.authentication.user);
-  const isLoading = useSelector<RootState>(
-    (state) => state.authentication.isLoading
-  );
-  const error = useSelector<RootState>((state) => state.authentication.error);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.authentication.user);
+  const isLoading = useAppSelector((state) => state.authentication.isLoading);
+  const error = useAppSelector((state) => state.authentication.error);
   const { data, isError } = useQuery("fetchUser", getUser);
+
 
   useEffect(() => {
     if (data) {
@@ -24,7 +22,7 @@ const useAuth = () => {
       dispatch(setLoading(false)); // Set loading to false when user data is available
     } else if (isError) {
       dispatch(setError("Error fetching user")); // Set error message in case of an error
-      dispatch(setLoading(true)); // Set loading back to true when an error occurs
+      dispatch(setLoading(false)); // Set loading to false when an error occurs
     } else {
       dispatch(setLoading(true)); // Set loading to true initially or while fetching
     }
