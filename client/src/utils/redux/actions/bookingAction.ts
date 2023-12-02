@@ -1,20 +1,20 @@
 import { BookingDocument } from "@types/index";
-import * as actionTypes from "./actionTypes";
+import {GET_BOOKING, ADD_BOOKING, UPDATE_BOOKING_STATUS} from "./actionTypes";
 
 export const addBooking = (booking: BookingDocument) => ({
-  type: actionTypes.ADD_BOOKING,
+  type: ADD_BOOKING,
   payload: booking,
-});
+}) as const;
 
 export const getBooking = (booking: BookingDocument) => ({
-  type: actionTypes.GET_BOOKING,
+  type: GET_BOOKING,
   payload: booking,
-});
+}) as const;
 
 export const updateBookingStatus = (
   bookingId: string,
   status: BookingDocument["status"]
 ) => ({
-  type: actionTypes.UPDATE_BOOKING_STATUS,
+  type: UPDATE_BOOKING_STATUS,
   payload: { bookingId, status },
-});
+}) as const;
