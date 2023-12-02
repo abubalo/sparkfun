@@ -3,19 +3,28 @@ import { object, string } from "yup";
 import { CloudArrow } from "../../shared/icons/Icons";
 import Button from "../../shared/ui/button/Button";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/utils/hooks/AuthProvider";
-import { useAppState } from "@/utils/hooks/AppContext";
+import useAuth from "@utils/hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "@utils/redux/store/configureStore";
+import { addBooking } from "@utils/redux/actions/bookingAction";
 
 const DefaultForm = () => {
-  const { dispatch } = useAppState();
-  const { user } = useAuth();
-  const userId = user?.id as string;
-
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const dispatch = useDispatch();
+
+  const { gigId } = useAppSelector((state) => state.getGigId);
+  const booking = useAppSelector(state => state.booking)
+  const userId = user?.id;
+
+  if (!userId) {
+    return ;
+  }
+
 
   const initialValues = {
     user: userId,
-    gigId: "gigId",
+    gigId,
     celebrant: "",
     celebrant_age: "",
     occation: "birthday",
@@ -31,12 +40,15 @@ const DefaultForm = () => {
 
   const handleSubmit = (data: typeof initialValues) => {
     try {
-      dispatch({ type: "ADD_BOOKING", payload: data });
+      dispatch(addBooking(data));
+      console.log("booking Data: ", booking);
       navigate("checkout", { state: data });
     } catch (error) {
       console.log("Error from booking form: ", error);
     }
   };
+
+ 
 
   return (
     <Formik
@@ -46,7 +58,7 @@ const DefaultForm = () => {
     >
       {({ values, handleChange, handleBlur }) => {
         return (
-          <Form action="" className=" w-full space-y-8">
+          <Form action="" className="w-full space-y-8 ">
             <div className="space-y-8">
               <div className="space-y-6">
                 <div>
@@ -65,12 +77,12 @@ const DefaultForm = () => {
                     onBlur={handleBlur}
                     placeholder="Lilla"
                     autoComplete={""}
-                    className="w-full block bg-gray-50 border border-gray-300 text-gray-500 sm:text-sm rounded-lg  p-4 dark:bg-foreground dark:border-gray-600 dark:placeholder-gray-500  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="block w-full p-4 text-gray-500 border border-gray-300 rounded-lg bg-gray-50 sm:text-sm dark:bg-foreground dark:border-gray-600 dark:placeholder-gray-500 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
                   <ErrorMessage
                     name="celebrant"
                     component="div"
-                    className="text-sm text-semibold text-red-500"
+                    className="text-sm text-red-500 text-semibold"
                   />
                 </div>
 
@@ -91,7 +103,7 @@ const DefaultForm = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoComplete={"current-tofirstname"}
-                    className="w-full block bg-gray-50 border border-gray-300 text-gray-500 sm:text-sm rounded-lg  p-4 dark:bg-foreground dark:border-gray-600 dark:placeholder-gray-500  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="block w-full p-4 text-gray-500 border border-gray-300 rounded-lg bg-gray-50 sm:text-sm dark:bg-foreground dark:border-gray-600 dark:placeholder-gray-500 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
                 </div>
                 <div>
@@ -112,10 +124,10 @@ const DefaultForm = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoComplete={"current-tofirstname"}
-                    className="w-full block bg-gray-50 border border-gray-300 text-gray-500 sm:text-sm rounded-lg  p-4 resize-none dark:bg-foreground dark:border-gray-600 dark:placeholder-gray-500  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="block w-full p-4 text-gray-500 border border-gray-300 rounded-lg resize-none bg-gray-50 sm:text-sm dark:bg-foreground dark:border-gray-600 dark:placeholder-gray-500 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
                 </div>
-                <div className="flex justify-between items-center p-4 bg-foreground rounded-lg">
+                <div className="flex items-center justify-between p-4 rounded-lg bg-foreground">
                   <div>
                     <h1 className="text-lg font-semibold">
                       Additonal Document to aid in pronounciation or others
@@ -128,7 +140,7 @@ const DefaultForm = () => {
 
                   <div
                     id="uploadFile"
-                    className="bg-slate-800 flex justify-between gap-2  items-center px-8 py-4 cursor-pointer rounded-full "
+                    className="flex items-center justify-between gap-2 px-8 py-4 rounded-full cursor-pointer bg-slate-800 "
                   >
                     <div>
                       <CloudArrow />
