@@ -1,5 +1,5 @@
-import { makeApiRequest } from "@/utils/helpers/makeRequest";
-import apiClient from "@/utils/helpers/apiClient";
+import { makeApiRequest } from "@utils/helpers/makeRequest";
+import apiClient from "@utils/helpers/apiClient";
 
 export const getConfigKey = () =>
   makeApiRequest(() => apiClient.get("stripe/pub-key"));

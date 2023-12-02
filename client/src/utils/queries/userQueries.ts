@@ -1,4 +1,4 @@
-import { UserDocument } from "../../../../types";
+import { UserDocument } from "@types/index";
 import apiClient from "../helpers/apiClient";
 import { makeApiRequest } from "../helpers/makeRequest";
 

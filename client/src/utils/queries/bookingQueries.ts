@@ -1,29 +1,24 @@
-import axios from "axios";
+import apiClient from "@utils/helpers/apiClient";
 import { BookingDocument } from "../../../../types";
 import { makeApiRequest } from "../helpers/makeRequest";
 
-const bookinApi = axios.create({
-  baseURL: "http://localhost:5000/booking",
-  withCredentials: true,
-});
-
 export type BookingData = BookingDocument
 export const createBooking = (data: BookingData) => {
-  makeApiRequest(() => bookinApi.post("/create", data));
+  makeApiRequest(() => apiClient.post("/booking/create", data));
 };
 
 export const getBooking = (bookingId: string) => {
-  makeApiRequest(() => bookinApi.get(`/${bookingId}`));
+  makeApiRequest(() => apiClient.get(`/booking/${bookingId}`));
 };
 
 export const deliverBooking = (bookingId: string) => {
-  makeApiRequest(() => bookinApi.patch(`/${bookingId}`));
+  makeApiRequest(() => apiClient.patch(`/booking/${bookingId}`));
 };
 
 export const modifyBooking = (bookingId: string) => {
-  makeApiRequest(() => bookinApi.patch(`/${bookingId}`));
+  makeApiRequest(() => apiClient.patch(`/booking/${bookingId}`));
 };
 
 export const cancelBooking = (bookingId: string) => {
-  makeApiRequest(() => bookinApi.patch(`/${bookingId}`));
+  makeApiRequest(() => apiClient.patch(`/booking/${bookingId}`));
 };
