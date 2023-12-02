@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "@/utils/hooks/AuthProvider";
+import { useAuth } from "@utils/hooks/AuthProvider";
 import LinkButton from "./button/LinkButton";
-import UserDropdownMenu from "@/components/shared/ui/dropdown/UserDropdownMenu";
+import UserDropdownMenu from "@components/shared/ui/dropdown/UserDropdownMenu";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
