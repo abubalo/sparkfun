@@ -1,4 +1,4 @@
-import LinkButton from "@/components/shared/ui/button/LinkButton";
+import LinkButton from "@components/shared/ui/button/LinkButton";
 
 const NotFoundPage = () => {
   return (
