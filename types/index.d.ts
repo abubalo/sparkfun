@@ -1,6 +1,7 @@
 import mongoose, { Document, ObjectId } from "mongoose";
 
 export interface UserDocument extends Document {
+  id?: string;
   firstName: string;
   lastName: string;
   username: string;
@@ -22,7 +23,7 @@ declare const BookingStatus: {
 
 export interface BookingDocument extends Document {
   user: ObjectId;
-  talent: ObjectId;
+  gigId: ObjectId;
   celebrant: string;
   celebrant_age?: string;
   message?: string;
@@ -76,7 +77,7 @@ type Temp = {
   attachment: string;
 };
 
-export interface TokenDoc extends Document{
+export interface TokenDoc extends Document {
   email: string;
   token: string;
   expirationTimestamp: Date;
