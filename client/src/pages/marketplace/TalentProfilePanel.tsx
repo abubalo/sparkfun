@@ -1,4 +1,4 @@
-import { Currency, Sparkles } from "@/components/shared/icons/Icons";
+import { Currency, Sparkles } from "@components/shared/icons/Icons";
 
 const TalentProfilePanel = () => {
   return (
