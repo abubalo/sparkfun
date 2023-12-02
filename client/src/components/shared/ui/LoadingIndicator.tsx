@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { twMerge } from "tailwind-merge";
 
 type Props = {
@@ -6,7 +5,7 @@ type Props = {
   className?: string;
 };
 
-const LoadingIndicator: FC<Props> = ({ className, type }) => {
+const LoadingIndicator = ({ className, type }: Props) => {
   return (
     <div className={twMerge(`w-full h-full ${className}`)}>
       {type === "loading" ? (
