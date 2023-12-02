@@ -19,7 +19,7 @@ const bookingReducer = (state = initialState, action: BookingAction) => {
     case actionTypes.ADD_BOOKING:
       return {
         ...state,
-        bookings: [...state.bookings, action.payload],
+        booking: action.payload,
       };
     case actionTypes.UPDATE_BOOKING_STATUS:
       return {
