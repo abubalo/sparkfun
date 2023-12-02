@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Avatar from "@/components/shared/ui/Avatar";
-import Dropdown from "@/components/shared/ui/dropdown/Drowpdown";
+import Avatar from "@components/shared/ui/Avatar";
+import Dropdown from "@components/shared/ui/dropdown/Drowpdown";
 import { twMerge } from "tailwind-merge";
 import { FC } from "react";
 
