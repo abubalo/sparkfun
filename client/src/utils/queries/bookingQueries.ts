@@ -7,7 +7,8 @@ const bookinApi = axios.create({
   withCredentials: true,
 });
 
-export const createBooking = (data: BookingDocument) => {
+export type BookingData = BookingDocument
+export const createBooking = (data: BookingData) => {
   makeApiRequest(() => bookinApi.post("/create", data));
 };
 
