@@ -4,21 +4,20 @@ import { CloudArrow } from "../../shared/icons/Icons";
 import Button from "../../shared/ui/button/Button";
 import { useNavigate } from "react-router-dom";
 import useAuth from "@utils/hooks/useAuth";
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "@utils/redux/store/configureStore";
+import { useAppDispatch, useAppSelector } from "@utils/redux/store/configureStore";
 import { addBooking } from "@utils/redux/actions/bookingAction";
 
 const DefaultForm = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { gigId } = useAppSelector((state) => state.getGigId);
   const booking = useAppSelector(state => state.booking)
   const userId = user?.id;
 
-  if (!userId) {
-    return ;
+  if (!userId || gigId) {
+    console.log("User Id is undefined");
   }
 
 
@@ -38,7 +37,7 @@ const DefaultForm = () => {
     celebrant: string().required("Please fill the Input"),
   });
 
-  const handleSubmit = (data: typeof initialValues) => {
+  function handleSubmit (data: typeof initialValues) {
     try {
       dispatch(addBooking(data));
       console.log("booking Data: ", booking);
@@ -46,7 +45,9 @@ const DefaultForm = () => {
     } catch (error) {
       console.log("Error from booking form: ", error);
     }
-  };
+  }
+
+
 
  
 
