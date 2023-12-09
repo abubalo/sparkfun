@@ -1,9 +1,9 @@
-import { useAuth } from "@utils/hooks/AuthProvider";
 import TalentDasboard from "@components/talent/TalentDashboard";
 import UserDashboard from "@components/user/userDashboard/UserDashboard";
 import RequiredAuth from "@utils/auth/RequiredAuth";
+import useAuth from "@utils/hooks/useAuth";
 
-const Dashboard = () => {
+const Dashboard = RequiredAuth(() => {
   const { user } = useAuth();
 
   return (
@@ -11,6 +11,6 @@ const Dashboard = () => {
       {user?.role === "talent" ? <TalentDasboard /> : <UserDashboard />}
     </div>
   );
-};
+});
 
-export default RequiredAuth(Dashboard);
+export default Dashboard;
