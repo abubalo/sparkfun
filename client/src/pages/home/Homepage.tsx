@@ -1,14 +1,14 @@
-import Catalog from "@/components/homepage/Catalog";
-import LinkButton from "@/components/shared/ui/button/LinkButton";
-import VerifyAcccount from "@/pages/auth/accountVerification/VerifyAcccount";
-import UserDropdownMenu from "@/components/shared/ui/dropdown/UserDropdownMenu";
+import Catalog from "@components/homepage/Catalog";
+import LinkButton from "@components/shared/ui/button/LinkButton";
+import VerifyAcccount from "@pages/auth/accountVerification/VerifyAcccount";
+import UserDropdownMenu from "@components/shared/ui/dropdown/UserDropdownMenu";
 import { useState } from "react";
-// import SelectMenu from "@/components/shared/ui/selectMenu/SelectMenu";
-import Modal from "@/components/shared/ui/modal/Modal";
-import Button from "@/components/shared/ui/button/Button";
-import NotificationModal from "@/components/notifications/NotificationModal";
-import LoadingIndicator from "@/components/shared/ui/LoadingIndicator";
-import { BellIcon } from "@/components/shared/icons/Icons";
+// import SelectMenu from "@components/shared/ui/selectMenu/SelectMenu";
+import Modal from "@components/shared/ui/modal/Modal";
+import Button from "@components/shared/ui/button/Button";
+import NotificationModal from "@components/notifications/NotificationModal";
+import LoadingIndicator from "@components/shared/ui/LoadingIndicator";
+import { BellIcon } from "@components/shared/icons/Icons";
 
 const HomePage = () => {
   const [open, setOpen] = useState(false);
