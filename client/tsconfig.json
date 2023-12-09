@@ -6,14 +6,14 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    "baseUrl": "./",
-
     /* Bundler mode */
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "esModuleInterop": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    
 
     /* Linting */
     "strict": true,
@@ -21,16 +21,22 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*", "/dist/*", ""],
-      "@components/*": ["./components/*"],
-      "@pages/*": ["./pages/*"],
-      "@utils/*":["./utils/*"],
-      "@hooks/*":["./hooks/*"],
-      "@context/*":["./content/*"],
-      "@query/*":["./queries/*"],
+      // "@/*": ["src/*", "dist/*", ""],
+      "@types/*": ["../types/*"],
+      "@components/*": ["src/components/*"],
+      "@shared/*": ["src/components/shared/*"],
+      "@icons/*": ["src/components/shared/icons/*"],
+      "@pages/*": ["src/pages/*"],
+      "@utils/*": ["src/utils/*"],
+      "@queries/*": ["src/utils/queries/*"], 
+      "@redux/*": ["src/utils/redux/*"], 
+      "@hooks/*": ["src/hooks/*"], 
+      "@assets/*": ["src/assets/*"],
+      "react": [ "./node_modules/@types/react" ]
     }
   },
-  "include": ["src", "types.d.ts"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
