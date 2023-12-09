@@ -5,10 +5,10 @@ import RecentlyVisited from "@components/gigs/RecentlyVisited";
 import GigCard from "@components/gigs/GigCard";
 import { setGigId } from "@utils/redux/reducers/gigIdSlice";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@utils/redux/store/configureStore";
 
 const GigPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {gigId} = useParams();
   dispatch(setGigId(gigId));
 
