@@ -8,7 +8,6 @@ export default class BookingService {
   ): Promise<Response<BookingDocument>> => {
     try {
       const newBooking = await BookingModel.create(data);
-      console.log("New Booking: ", newBooking);
 
       logger.info(
         `Booking created by user: ${newBooking.user?.email} to Talent: ${newBooking.talent?.email}`
