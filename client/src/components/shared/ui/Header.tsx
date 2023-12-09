@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "@utils/hooks/AuthProvider";
 import LinkButton from "./button/LinkButton";
 import UserDropdownMenu from "@components/shared/ui/dropdown/UserDropdownMenu";
+import useAuth from "@utils/hooks/useAuth";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,9 +12,7 @@ const Header = () => {
   return (
     <>
       <header
-        className="
-     
-       bg-transparent text-white"
+        className="text-white bg-transparent "
       >
         <nav
           className="flex items-center justify-between p-6 mx-auto max-w-7xl lg:px-8"
@@ -27,7 +25,7 @@ const Header = () => {
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                 alt="sparkfun"
               />
-              <h2 className="text-xl text-white font-bold">Sparkfun</h2>
+              <h2 className="text-xl font-bold text-white">Sparkfun</h2>
             </Link>
           </div>
           <div className="flex lg:hidden">
