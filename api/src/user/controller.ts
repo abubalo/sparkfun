@@ -113,7 +113,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
         secure: true,
         // domain: ".sparkfun.vercel.app",
         path: "/",
-        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // Cookie expires in 24 hours (in milliseconds)
+        expires: new Date(Date.now() + 48 * 60 * 60 * 1000), // Cookie expires in 24 hours (in milliseconds)
       })
       .json(data);
   } catch (error) {
