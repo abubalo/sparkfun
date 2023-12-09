@@ -4,6 +4,7 @@ import {
   PaymentElement,
 } from "@stripe/react-stripe-js";
 import { Stripe } from "@stripe/stripe-js";
+import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import Button from "../shared/ui/button/Button";
 
@@ -20,17 +21,17 @@ const CheckoutForm = () => {
       if (!stripe || !elements) {
         return;
       }
-      // const { error: submitError } = await elements.submit();
+      const { error: submitError } = await elements.submit();
 
-      // if (submitError) {
-      //   setErrorMessage(submitError.message);
-      //   return;
-      // }
+      if (submitError) {
+        setErrorMessage(submitError.message);
+        return;
+      }
 
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: "/completion",
+          return_url: `${window.location.origin}/completion`,
         },
       });
 
@@ -39,6 +40,10 @@ const CheckoutForm = () => {
         return;
       }
 
+      const response = await axios.post("", {})
+      const data = response.data;
+      console.log(data );
+
       setIsProccessing(false);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -46,7 +51,7 @@ const CheckoutForm = () => {
     }
   };
   return (
-    <main className="w-full h-full flex items-center justify-center ">
+    <main className="flex items-center justify-center w-full h-full ">
       <form
         onSubmit={handleSubmit}
         id="payment-form"
