@@ -10,25 +10,22 @@ const RequiredAuth = <T extends object>(WrappedComponent: ComponentType<T>) => {
 
     useEffect(() => {
       const handleAuthentication = () => {
-        if(isLoading){
-          return <LoadingIndicator />
-        }
         if (user === null) {
-          // Delayed redirect if user data is still null after a certain time (e.g., 1 second)
+          // Redirect to login if user data is still null, loading has finished, and there are no errors
           const timeout = setTimeout(() => {
             navigate('/login');
-          }, 1000); // Adjust this time as needed
-
+          }, 1000);
+    
           return () => clearTimeout(timeout); // Clear timeout if user data is received before the delay
-        
         }
       };
-
-      handleAuthentication();
+    
+      return handleAuthentication();
     }, [user, isLoading, navigate, error]);
+    
 
     return (
-      <>{isLoading ? <LoadingIndicator /> : <WrappedComponent {...props} />}</>
+      <div className="h-screen">{isLoading ? <LoadingIndicator /> : <WrappedComponent {...props} />}</div>
     );
   };
 };

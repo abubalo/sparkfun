@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ComponentType, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import LoadingIndicator from "@components/shared/ui/LoadingIndicator";
 import useAuth from "@utils/hooks/useAuth";
 
 
@@ -12,11 +10,11 @@ const AuthRedirect = <P extends object>(WrappedComponent: ComponentType) => {
 
     useEffect(() => {
       const handleAuthentication = () => {
-        if (user !== null) {
+        if (user) {
           // Delayed redirect if user data is still null after a certain time (e.g., 1 second)
           const timeout = setTimeout(() => {
-            navigate("/dashboard");
-          }, 1000); // Adjust this time as needed
+            return navigate("/dashboard");
+          }, 1000); 
 
           return () => clearTimeout(timeout); // Clear timeout if user data is received before the delay
         }
@@ -25,7 +23,7 @@ const AuthRedirect = <P extends object>(WrappedComponent: ComponentType) => {
     }, [user, navigate, isLoading]);
 
     return (
-      <>{isLoading ? <LoadingIndicator /> : null}</>
+      <div className="h-screen"><WrappedComponent {...props}/></div>
     );
   };
 
