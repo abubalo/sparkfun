@@ -17,7 +17,7 @@ export default async function generateToken(
     };
 
     const token = jwt.sign(payload, config.jwt.secret, {
-      expiresIn: "24h",
+      expiresIn: "48h",
     });
 
     return { success: true, data: token };
