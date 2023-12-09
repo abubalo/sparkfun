@@ -15,6 +15,7 @@ import Booking from "@pages/booking/Booking";
 import Checkout from "@pages/checkout/Checkout";
 import GapPage from "@pages/gig/GigPage";
 import Payment from "./components/payment/Payment";
+import Completion from "@pages/checkout/Completion";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/book" element={<Booking />} />
         <Route path="book/checkout" element={<Checkout />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/completion" element={<Completion />} />
         <Route path="/profile/earnings" element={<VerifyAcccount />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
