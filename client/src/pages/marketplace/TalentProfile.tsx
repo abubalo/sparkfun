@@ -7,9 +7,9 @@ import {
   Star,
   StarSolid,
   Rocket,
-} from "@/components/shared/icons/Icons";
-import { img3 } from "@/components/Temp";
-import ProfilePicture from "@/components/user/profilePicture/ProfilePicture";
+} from "@components/shared/icons/Icons";
+import { img3 } from "@components/Temp";
+import ProfilePicture from "@components/user/profilePicture/ProfilePicture";
 import { Link, useLocation } from "react-router-dom";
 import TalentProfilePanel from "./TalentProfilePanel";
 
