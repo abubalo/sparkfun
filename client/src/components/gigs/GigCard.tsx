@@ -6,13 +6,13 @@ type Props = {
 };
 const GigCard: FC<Props> = ({ price }) => {
   return (
-    <div className="h-full basis-1/3 space-y-6 md:hidden">
-      <div className="sticky top-4 h-auto bg-foreground p-4 rounded-lg space-y-6">
-        <div className="flex gap-4 items-center p-2">
+    <div className="h-full space-y-6 basis-1/3 md:hidden">
+      <div className="sticky h-auto p-4 space-y-6 rounded-lg top-4 bg-foreground">
+        <div className="flex items-center gap-4 p-2">
           {/* <Currency /> */}
-          <div className="text-textColor  space-y-4">
+          <div className="space-y-4 text-textColor">
             <h3 className="text-xl font-bold">Money Back Guaranteed</h3>
-            <p className=" ">
+            <p className="">
               If you pay on web by card, we reserve the amount when you place
               your order but only charge once you have received the video.
             </p>
@@ -22,10 +22,10 @@ const GigCard: FC<Props> = ({ price }) => {
             </p>
           </div>
         </div>
-        <div className="rounded-lg bg-red-400">
+        <div className="bg-red-400 rounded-lg">
           <LinkButton
-            href="book"
-            className="w-full p-4 text-lg font-semibold space-x-2"
+            href="/book"
+            className="w-full p-4 space-x-2 text-lg font-semibold"
           >
             Order Now! <span>${price}</span>
           </LinkButton>
