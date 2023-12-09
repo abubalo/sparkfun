@@ -2,7 +2,7 @@ import { useMutation } from "react-query";
 import { deliverBooking } from "../queries/bookingQueries";
 
 type Options = {
-  onSuccess?: () => void;
+  onSuccess?: (data: any) => void;
   onError?: (error: unknown) => void;
 };
 
@@ -14,8 +14,8 @@ export function useUpdateBooking(options: Options) {
       return response;
     },
     {
-      onSuccess: () => {
-        options.onSuccess && options.onSuccess();
+      onSuccess: (data) => {
+        options.onSuccess && options.onSuccess(data);
       },
       onError: (error) => {
         options.onError && options.onError(error);

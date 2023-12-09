@@ -3,7 +3,7 @@ import { ReviewDocument } from "../../../../types";
 import { writeReview } from "../queries/reviewQueries";
 
 type Options = {
-  onSuccess: () => void;
+  onSuccess: (data: any) => void;
   onError: (error: unknown) => void;
 };
 
@@ -15,8 +15,8 @@ export function useWriteReview(options: Options) {
       return response;
     },
     {
-      onSuccess: () => {
-        options.onSuccess && options.onSuccess(); //Trigers only when onSuccess is invoked
+      onSuccess: (data) => {
+        options.onSuccess && options.onSuccess(data); //Trigers only when onSuccess is invoked
       },
       onError: (error) => {
         options.onError && options.onError(error);

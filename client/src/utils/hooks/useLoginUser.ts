@@ -6,8 +6,8 @@ import {
 } from "../queries/userQueries"; // Assuming LoginData is imported
 
 type Options = {
-  onSuccess?: (data: UserDocument) => void;
-  onError?: (error: any) => void;
+  onSuccess?: (data: any) => void;
+  onError?: (error: unknown) => void;
 };
 
 export default function useLoginUser(options: Options) {

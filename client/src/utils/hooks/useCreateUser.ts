@@ -1,3 +1,4 @@
+import { UserDocument } from "@types/";
 import { useMutation } from "react-query";
 import {
   CreateUserData,
@@ -5,7 +6,7 @@ import {
 } from "../queries/userQueries"; // Assuming LoginData is imported
 
 type Options = {
-  onSuccess?: () => void;
+  onSuccess?: (data: UserDocument) => void;
   onError?: (error: unknown) => void;
 };
 
@@ -17,8 +18,8 @@ export function useRegisterUser(options: Options) {
       return response;
     },
     {
-      onSuccess: () => {
-        options.onSuccess && options.onSuccess();
+      onSuccess: (data) => {
+        options.onSuccess && options.onSuccess(data);
       },
       onError: (error) => {
         options.onError && options.onError(error);
