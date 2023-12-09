@@ -25,10 +25,10 @@ export interface BookingDocument extends Document {
   user: ObjectId;
   gigId: ObjectId;
   celebrant: string;
-  celebrant_age?: string;
+  celebrantAge?: string;
   message?: string;
   occasion?: string;
-  booking_date?: Date | string;
+  bookingDate?: Date | string;
   attacthment?: string;
   plan?: string;
   price?: number;
