@@ -4,7 +4,7 @@ import { UserDocument } from "../../../../types";
 const registrationSchema = z.object({
   firstName: z.string().min(3).max(100),
   lastName: z.string().min(3).max(100),
-  role: z.enum(["user", "talent"]),
+  role: z.enum(["user", "talent"]).optional(),
   email: z.string().email(),
   username: z.string().min(3),
   password: z.string().min(7).max(100),
